@@ -11,6 +11,6 @@ jobs:
     - name: 📂 Sync files
       uses: SamKirkland/FTP-Deploy-Action@4.0.0
       with:
-        server: sv2.php.starfree.ne.jp
-        username: felica29.starfree.jp
+        server: ftp.lolipop.jp
+        username: lolipop.jp-yachin29
         password: ${{ secrets.ftp_password }}
