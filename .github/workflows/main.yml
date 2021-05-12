@@ -15,7 +15,7 @@ jobs:
       - name: 📂 Sync files
         uses: ./
         with:
-          server: ftp.samkirkland.com
-          username: test@samkirkland.com
-          password: ${{ secrets.ftp_password }}
+          server: sv2.php.starfree.ne.jp
+          username: felica29.starfree.jp
+          password: yachin1867
 
