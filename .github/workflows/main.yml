@@ -1,36 +1,17 @@
-name: lolipop
-
-on:
-  push:
-    branches:
-      - main
-
+on: push
+name: 🚀 Deploy website on push
 jobs:
-  deploy:
+  web-deploy:
+    name: 🎉 Deploy
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-
-      - name: Checkout submodules
-        shell: bash
-        run: |
-          auth_header="$(git config --local --get http.https://github.com/.extraheader)"
-          git submodule sync --recursive
-          git -c "http.extraheader=$auth_header" -c protocol.version=2 submodule update --init --force --recursive --depth=1
-
-      - name: Setup Hugo
-        uses: peaceiris/actions-hugo@v2
-        with:
-          hugo-version: latest
-
-      - name: Build
-        run: hugo --minify
-
-      - name: Deploy via FTP
-        uses: SamKirkland/FTP-Deploy-Action@3.0.0
-        with:
-          ftp-server: ${{ secrets.FTP_HOST }}
-          ftp-username: ${{ secrets.FTP_USERNAME }}
-          ftp-password: ${{ secrets.FTP_PASSWORD }}
-          git-ftp-args: --remote-root ${{ secrets.FTP_REMOTE_ROOT }}
-          local-dir: public
+    - name: 🚚 Get latest code
+      uses: actions/checkout@v2.3.2
+    
+    - name: 📂 Sync files
+      uses: SamKirkland/FTP-Deploy-Action@4.0.0
+      with:
+        server: ${{ secrets.FTP_HOST}}
+        username: ${{ secrets.FTP_USERNAME }}
+        password: ${{ secrets.FTP_PASSWORD }}
+        server-dir: ./git-action2/
