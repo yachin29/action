@@ -1,17 +1,28 @@
-on: push
+on:
+  push:
+    branches: [main]
+
 name: 🚀 Deploy website on push
+
 jobs:
   web-deploy:
     name: 🎉 Deploy
     runs-on: ubuntu-latest
     steps:
     - name: 🚚 Get latest code
-      uses: actions/checkout@v2.3.2
-    
+      uses: actions/checkout@v4
+
     - name: 📂 Sync files
-      uses: SamKirkland/FTP-Deploy-Action@4.0.0
+      uses: SamKirkland/FTP-Deploy-Action@4.3.5
       with:
-        server: ${{ secrets.FTP_HOST}}
+        server: ${{ secrets.FTP_HOST }}
         username: ${{ secrets.FTP_USERNAME }}
         password: ${{ secrets.FTP_PASSWORD }}
-        server-dir: ./git-action/
+        protocol: ftps  # FTPSを使用(サーバーが対応している場合)
+        server-dir: ./git-action/  # 実際のパスに変更
+        exclude: |
+          **/.git*
+          **/.git*/**
+          **/node_modules/**
+          **/.DS_Store
+        timeout: 300000  # 5分
